@@ -1,58 +1,15 @@
-// fallhrpractice-api · Express HTTP wrapper around fallhrpractice-sdk · MIT · AI-Native Solutions
+// fallhrpractice-api · HTTP wrapper · MIT · AI-Native Solutions
 import express from 'express';
-
 const app = express();
-app.use(express.json({ limit: '10mb' }));
-
-app.get('/health', (_req, res) => res.json({ ok: true, tool: 'fallhrpractice', version: '1.0.0' }));
-
-app.post('/loadConfig', async (req, res) => {
-  try {
-    const { loadConfig } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof loadConfig === 'function' ? await loadConfig(req.body) : { error: 'loadConfig not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/saveConfig', async (req, res) => {
-  try {
-    const { saveConfig } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof saveConfig === 'function' ? await saveConfig(req.body) : { error: 'saveConfig not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/$', async (req, res) => {
-  try {
-    const { $ } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof $ === 'function' ? await $(req.body) : { error: '$ not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/esc', async (req, res) => {
-  try {
-    const { esc } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof esc === 'function' ? await esc(req.body) : { error: 'esc not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/aiTier', async (req, res) => {
-  try {
-    const { aiTier } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof aiTier === 'function' ? await aiTier(req.body) : { error: 'aiTier not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/renderAiChip', async (req, res) => {
-  try {
-    const { renderAiChip } = await import('@ai-native-solutions/fallhrpractice-sdk');
-    const out = typeof renderAiChip === 'function' ? await renderAiChip(req.body) : { error: 'renderAiChip not callable' };
-    res.json(out);
-  } catch (e) { res.status(500).json({ error: e.message }); }
-});
-
+app.use(express.json());
+app.get('/health', (_,res) => res.json({ok:true, service:'fallhrpractice-api', version:'1.0.0'}));
+app.get('/', (_,res) => res.json({
+  service:'fallhrpractice-api',
+  parent:'fallhr',
+  purpose:'practice-mode drill scenarios for UK HR compliance',
+  endpoints:['GET /health','GET /scenarios','POST /score']
+}));
+app.get('/scenarios', (_,res) => res.json({scenarios:['s1-part-time-worker','s2-fixed-term-contract','s3-dismissal-fair','s4-tupe-transfer','s5-disciplinary','s6-grievance','s7-flexible-working','s8-parental-leave','s9-redundancy','s10-equal-pay']}));
+app.post('/score', (req,res) => res.json({scenario:req.body.scenario||'unknown', score:0.7, passed:true, feedback:'stub · Phase 2 wires FallHR SDK for real scoring'}));
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log('fallhrpractice-api listening on :' + PORT));
+app.listen(PORT, () => console.log(`fallhrpractice-api on :${PORT}`));

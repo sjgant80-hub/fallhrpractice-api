@@ -1,25 +1,14 @@
 {
   "name": "@ai-native-solutions/fallhrpractice-api",
   "version": "1.0.0",
-  "description": "fallhrpractice HTTP API · Express wrapper around @ai-native-solutions/fallhrpractice-sdk",
+  "description": "HTTP API for fallhrpractice · UK HR practice-mode drill scenarios · MIT · AI-Native Solutions",
   "type": "module",
   "main": "src/index.js",
   "files": ["src", "README.md", "LICENSE", "Dockerfile", "docker-compose.yml"],
-  "scripts": {
-    "start": "node src/index.js"
-  },
-  "keywords": ["fallhrpractice", "api", "http", "express", "ai-native-solutions"],
+  "scripts": {"start": "node src/index.js"},
   "author": "AI-Native Solutions",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/sjgant80-hub/fallhrpractice-api.git"
-  },
-  "dependencies": {
-    "express": "^4.19.0",
-    "@ai-native-solutions/fallhrpractice-sdk": "^1.0.0"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
+  "repository": {"type": "git", "url": "https://github.com/sjgant80-hub/fallhrpractice-api.git"},
+  "dependencies": {"express": "^4.19.0"},
+  "publishConfig": {"access": "public"}
 }

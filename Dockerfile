@@ -5,4 +5,4 @@ RUN npm install --omit=dev
 COPY src ./src
 USER node
 EXPOSE 3000
-CMD ["node", "src/index.js"]
+CMD ["node","src/index.js"]
